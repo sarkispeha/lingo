@@ -1,0 +1,19 @@
+extends layout
+
+block content
+	h1 Pick Language
+
+	form(method="get", action="/quiz", id="language-pick")
+		label Question language: 
+		select(name="question")
+			option(value="eng") English
+			option(value="spa") Spanish
+			option(value="ara") Arabic
+			option(value="ger") German
+		label Answer Language
+		select(name="answer")
+			option(value="eng") English
+			option(value="spa") Spanish
+			option(value="ara") Arabic
+			option(value="ger") German
+		input(type="submit")

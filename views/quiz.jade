@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	h1 QUIZ!!!!!!!, fool.
+
+	div(id="quiz-area", data-question-lang="#{questionLang}", data-answer-lang="#{answerLang}")
+		div(id="question", data-num="0")
+			p#word
+			form#answer
+				label Answer:
+				input(name="answer", type="text")
+block scripts
+	script(src="quiz.js")

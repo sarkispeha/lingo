@@ -1,0 +1,20 @@
+extends layout
+
+block content
+	form(id="lang-form")
+		select(name="from")
+			option(value="eng") English
+			option(value="spa") Spanish
+			option(value="ara") Arabic
+			option(value="ger") German
+		select(name="to")
+			option(value="eng") English
+			option(value="spa") Spanish
+			option(value="ara") Arabic
+			option(value="ger") German
+		input(type="text", name="text", placeholder="word")
+		input(type="submit" value="submit")
+	div
+		p#trans-word #{word}
+block scripts
+	script(src='translatepage.js')
