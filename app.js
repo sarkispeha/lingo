@@ -26,7 +26,7 @@ app.get('/quiz', indexController.quiz);
 
 app.get('/api/getWord', apiController.getWord);
 app.post('/api/translateWord', apiController.translateWord);
-
+app.post('/api/addWord', apiController.addWord);
 
 
 

@@ -23,15 +23,22 @@ $(document).on('ready', function (req, res) {
 		$(this).find('[name=userAnswer]').val('');
 		$.post('/api/translateWord', {to: 'eng', from: answerLang, text: userAnswer}, function (resultData) {
 			var translatedUserAnswer = resultData.translation;
-			
+			var wordObj = {word: $('#word').text()}
+
 			if (translatedUserAnswer.toUpperCase() === $('#word').text().toUpperCase()) {
 				$('#answer-results').text('Correct!');
+				wordObj.correct = true;
 			}
 			else {
 				wrongAnswers++;
 				$('#answer-results').text('WRONG!');
+				wordObj.correct = false;
 			}
-			$('#answer-results').append('<button id="next"> Next Question');
+
+			$.post('/api/addWord', wordObj, function (resultData) {
+				$('#answer-results').append('<button id="next"> Next Question');
+				console.log(resultData);
+				});
 			});
 	});
 

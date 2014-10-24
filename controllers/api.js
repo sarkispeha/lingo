@@ -1,4 +1,4 @@
-var Quiz = require('../models/quiz_schema.js');
+var User = require('../models/user.js');
 var BeGlobal = require('node-beglobal');
 var randomWords = require('random-words')
 
@@ -17,6 +17,20 @@ var api = {
 	},
 	getWord: function (req, res) {
 		res.send(randomWords(1));
+	},
+
+	addWord: function (req, res) {
+		var word = req.body.word;
+		var correct = req.body.correct;
+		User.findOne({}, function (err, result) {
+			if (result.words) {
+				if(result.words.word) {
+					if (correct) {
+						// Implement
+					}
+				}
+			}
+		});
 	}
 }
 
