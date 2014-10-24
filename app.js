@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/lingodb');
 
-require('./models/quiz_seeds.js');
+require('./models/seeds/user_seed.js');
 
 
 
@@ -21,6 +21,8 @@ app.get('/', indexController.index);
 app.get('/picklang', indexController.picklang);
 app.get('/translate', indexController.translate);
 app.get('/quiz', indexController.quiz);
+// app.get('/success', indexController.success);
+
 
 app.get('/api/getWord', apiController.getWord);
 app.post('/api/translateWord', apiController.translateWord);

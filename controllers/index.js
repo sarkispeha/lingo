@@ -14,7 +14,6 @@ var indexController = {
 	quiz: function (req, res) {
 		// res.send(req.query);
 		res.render('quiz', {
-			questionLang: req.query.question,
 			answerLang: req.query.answer
 		})
 	}

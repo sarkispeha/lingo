@@ -1,5 +1,6 @@
 var Quiz = require('../models/quiz_schema.js');
 var BeGlobal = require('node-beglobal');
+var randomWords = require('random-words')
 
 //initialize the BeGlobal API
 var beglobal = new BeGlobal.BeglobalAPI({
@@ -15,11 +16,7 @@ var api = {
 		);
 	},
 	getWord: function (req, res) {
-		var num = parseInt(req.query.num);
-		Quiz.find({}, function (err, results) {
-			res.send(results[0].words[num]);
-		});
-		
+		res.send(randomWords(1));
 	}
 }
 

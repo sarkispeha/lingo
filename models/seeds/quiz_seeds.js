@@ -7,5 +7,5 @@ Quiz.find({}, function(err, results){
 		});
 		//save to db
 		newQuiz.save();
-	}
+	};
 });

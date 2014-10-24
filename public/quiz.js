@@ -1,31 +1,46 @@
+var wrongAnswers = 0;
+
+var getWord = function () {
+	//Query server for word.
+	$.get('/api/getWord', {}, function (resultData) {
+		$('#word').text(resultData);
+	});
+};
+
+
 $(document).on('ready', function (req, res) {
 	// Grab info
-	var answerLang = $('#quiz-area').data('answerLang');
-	var questionLang = $('#quiz-area').data('questionLang');
 	var num = $('#question').data('num');
+	var answerLang = $('#quiz-area').data('answer-lang');
+	$('#quest-num').text((num+1)+'/10');
 
-	//Query server for word.
-	$.get('/api/getWord', {num: num}, function (resultData) {
-		var word = resultData;
-		if (questionLang !== 'eng') {
-			$.post('/api/translateWord', {to: questionLang, from: 'eng', text: word}, function (resultData) {
-				console.log(resultData)
-				$('#word').text(resultData.translation);
-			});
-			$.post('/api/translateWord', {to: answerLang, from: 'eng', text: word }, function (resultData) {
-				console.log('answer')
-				$('#answer').append('<input type="hidden" value="'+resultData.translation+'">');
-			});
-		}
-		else {
-			$('#word').text(word);
-		}
-	});
+	getWord();	
 
 	// Check word
 	$('#answer').on('submit', function (event) {
 		event.preventDefault();
-		var answer = $(this).find('[name=from]').val();
-
+		var userAnswer = $(this).find('[name=userAnswer]').val();
+		$(this).find('[name=userAnswer]').val('');
+		$.post('/api/translateWord', {to: 'eng', from: answerLang, text: userAnswer}, function (resultData) {
+			var translatedUserAnswer = resultData.translation;
+			
+			if (translatedUserAnswer.toUpperCase() === $('#word').text().toUpperCase()) {
+				$('#answer-results').text('Correct!');
+			}
+			else {
+				wrongAnswers++;
+				$('#answer-results').text('WRONG!');
+			}
+			$('#answer-results').append('<button id="next"> Next Question');
+			});
 	});
+
+	$('#answer-results').on('click', '#next', function () {
+  		num = parseInt($('#question').data('num')) +1;
+  		$('#question').data('num', num);
+  		$('#quest-num').text((num+1)+'/10');
+  		$('#answer-results').empty();
+  		getWord(num);
+	});
+
 });

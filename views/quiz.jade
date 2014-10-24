@@ -3,11 +3,14 @@ extends layout
 block content
 	h1 QUIZ!!!!!!!, fool.
 
-	div(id="quiz-area", data-question-lang="#{questionLang}", data-answer-lang="#{answerLang}")
+	div(id="quiz-area", data-answer-lang="#{answerLang}")
 		div(id="question", data-num="0")
+			p: strong Question 
+				span#quest-num
 			p#word
 			form#answer
 				label Answer:
-				input(name="answer", type="text")
+				input(name="userAnswer", type="text")
+		div#answer-results
 block scripts
 	script(src="quiz.js")
